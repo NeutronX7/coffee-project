@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "247898777880",
+    "project_id": "proyectograd-1",
+    "storage_bucket": "proyectograd-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247898777880:android:0a755740259b73e75f566d",
+        "android_client_info": {
+          "package_name": "com.proyecto.coffeeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH9CafLFyTMMk_qn8L9jT_E71KPRF9CPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

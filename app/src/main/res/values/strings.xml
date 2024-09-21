@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CoffeeProject</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="user">Usuario</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="emailNotEmpty">El correo o la contraseña no pueden ir vacíos</string>
+    <string name="create">Crear</string>
+    <string name="productive_units">Unidades productivas</string>
+    <string name="productive_unit_name">Nombre de unidad productiva</string>
+    <string name="fill_info">Ingrese la información</string>
+    <string name="lots_of_pu">Lotes de la unidad productiva</string>
+    <string name="lots">Lotes</string>
+    <string name="lot_name">Nombre de lote</string>
+    <string name="area">Area</string>
+    <string name="groove">Zurcos</string>
+    <string name="date">Fecha</string>
+    <string name="new_lot">Agregar nuevo lote</string>
+    <string name="productive_branches">Ramas productivas</string>
+    <string name="knots_average">Promedio de nudos</string>
+    <string name="fruit_average_by_knot">Promedio de frutos por nudo</string>
+    <string name="productive_branches_desc">Sumar las ramas de todos los ejes que tengan de 3 nudos productivos en adelante</string>
+    <string name="knots_average_desc">Digitar cada uno de los estratos (alto, medio, bajo) en los campos de abajo para obtener el resultado del promedio de nudos por rama.</string>
+    <string name="fruit_average_by_knot_desc">Seleccionar un nudo de la parte alta de la planta cerca del tallo y contar las frutas, un nudo de la parte media de la planta (a media bandola) y contar los frutos, un nudo de la parte baja de la planta (el segundo de afuera para adentro de la bandola), colocar la información en los tres campos de abajo para obtener el promedio.</string>
+    <string name="next">Siguiente</string>
+</resources>
