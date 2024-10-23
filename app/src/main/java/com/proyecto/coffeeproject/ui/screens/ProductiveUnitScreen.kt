@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
@@ -120,7 +125,6 @@ fun ProductiveUnitList(
 ) {
     val productiveUnits = remember { mutableStateListOf<ProductiveUnit>() }
 
-    // Function to fetch productive units from Firestore
     LaunchedEffect(Unit) {
         val db = FirebaseFirestore.getInstance()
 
@@ -128,11 +132,13 @@ fun ProductiveUnitList(
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    val id = document.id  // Get the document ID
                     val name = document.getString("name") ?: ""
                     val user = document.getString("user") ?: ""
                     val lots = document.get("lots") as List<Lot>? ?: emptyList()
 
-                    productiveUnits.add(ProductiveUnit(name, user, lots))
+                    // Pass the id along with other fields to the ProductiveUnit object
+                    productiveUnits.add(ProductiveUnit(id, name, user, lots))
                 }
             }
             .addOnFailureListener { exception ->
@@ -149,7 +155,7 @@ fun ProductiveUnitList(
             ProductiveUnitItem(
                 productiveUnit,
                 navController,
-                productiveUnit.name
+                productiveUnit.name,
             )
         }
     }
@@ -180,19 +186,86 @@ fun ProductiveUnitItem(
             modifier = Modifier
                 .padding(start = 16.dp, top = 16.dp)
         ) {
+
             Text(
-                text = productiveUnit.name,
+                text = "Unidad productiva: ${productiveUnit.name}",
                 style = MaterialTheme.typography.bodyLarge,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.ExtraBold,
             )
+
             Text(
-                text = productiveUnit.user,
+                text = "Usuario: ${productiveUnit.user}",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 8.dp),
                 fontSize = 16.sp,
             )
+
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Row {
+                    IconButton(
+                        onClick = {
+                            navController.navigate("edit_productive_unit/${productiveUnit.id}/${productiveUnit.user}/${productiveUnit.name}")
+                            /*updateProductiveUnit(
+                                productiveUnit.id,
+                                productiveUnit.name,
+                                productiveUnit.user
+                            )*/
+                        },
+                        modifier = Modifier
+                            .padding()
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit",
+                        )
+                    }
+
+                    IconButton(
+                        onClick = { deleteProductiveUnit(productiveUnit.id)  },
+                        modifier = Modifier
+                            .padding()
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete",
+                        )
+                    }
+                }
+            }
         }
     }
 
+}
+
+fun updateProductiveUnit(id: String, updatedName: String, updatedUser: String) {
+    val db = FirebaseFirestore.getInstance()
+
+    db.collection("productive_units")
+        .document(id)
+        .update("name", updatedName, "user", updatedUser)
+        .addOnSuccessListener {
+            Log.d("Firestore", "Productive unit updated successfully")
+        }
+        .addOnFailureListener { e ->
+            Log.w("Firestore", "Error updating productive unit", e)
+        }
+}
+
+fun deleteProductiveUnit(id: String) {
+    val db = FirebaseFirestore.getInstance()
+
+    db.collection("productive_unit")
+        .document(id)
+        .delete()
+        .addOnSuccessListener {
+            Log.d("Firestore", "Productive unit deleted successfully")
+        }
+        .addOnFailureListener { e ->
+            Log.w("Firestore", "Error deleting productive unit", e)
+        }
 }

@@ -5,12 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -18,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.proyecto.coffeeproject.ui.screens.EditProductiveUnitScreen
 import com.proyecto.coffeeproject.ui.screens.LoginScreen
 import com.proyecto.coffeeproject.ui.screens.LotsFormScreen
 import com.proyecto.coffeeproject.ui.screens.LotsScreen
@@ -65,18 +64,40 @@ fun SetupNavGraph(navController: NavHostController, authViewModel: AuthViewModel
             )
         }
 
-        composable("productive_unit_screen") {
-            ProductiveUnitScreen(
-                navController = navController,
-                modifier = Modifier
-                    .fillMaxSize(),
-                authViewModel = authViewModel
-            )
-        }
-
         composable("productive_unit_form_screen") {
             ProductiveUnitFormScreen(
                 navController = navController,
+                modifier = Modifier
+                    .fillMaxSize(),
+            )
+        }
+
+        composable("edit_productive_unit/{id}/{name}/{productive_unit}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+
+            val id = remember {
+                it.arguments?.getString("id")
+            }
+
+            val name = remember {
+                it.arguments?.getString("name")
+            }
+
+            val productiveUnit = remember {
+                it.arguments?.getString("productive_unit")
+            }
+
+
+            EditProductiveUnitScreen(
+                navController = navController,
+                id = id,
+                name = name,
+                productiveUnit = productiveUnit,
                 modifier = Modifier
                     .fillMaxSize(),
             )

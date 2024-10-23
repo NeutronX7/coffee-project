@@ -49,7 +49,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.proyecto.coffeeproject.R
 import com.proyecto.coffeeproject.model.productive_unit.Lot
 
-//Contraseña password
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LotsScreen(
@@ -186,7 +185,7 @@ fun LotItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Select date",
+                        contentDescription = "Delete",
                     )
                 }
             }
